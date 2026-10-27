@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ArcadaTube – Prototyp A: Klassisk</title>
+  <link rel="stylesheet" href="../shared/base.css">
+  <link rel="stylesheet" href="../shared/player.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Hoppa till innehållet</a>
+
+  <header class="topbar">
+    <button type="button" class="icon-btn menu-btn" aria-label="Visa meny" aria-expanded="false" aria-controls="sidebar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </button>
+    <a class="logo" href="#/" aria-label="ArcadaTube – startsida">
+      <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 7.5v9l7.5-4.5z"/></svg></span>
+      <span>Arcada<b>Tube</b></span>
+    </a>
+    <form class="search" role="search">
+      <label class="sr-only" for="q">Sök föreläsningar</label>
+      <input id="q" name="q" type="search" placeholder="Sök föreläsningar, kurser eller lärare" autocomplete="off">
+      <button type="submit" aria-label="Sök">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+      </button>
+    </form>
+    <div class="role-switch" role="group" aria-label="Välj roll">
+      <button type="button" data-role="student">Student</button>
+      <button type="button" data-role="teacher">Lärare</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar" aria-label="Huvudmeny"></nav>
+    <div class="scrim" hidden></div>
+    <main id="main" tabindex="-1"></main>
+  </div>
+
+  <dialog id="video-dialog" class="dialog" aria-labelledby="dialog-title"></dialog>
+
+  <script src="../shared/mock-data.js"></script>
+  <script src="../shared/common.js"></script>
+  <script src="../shared/player.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

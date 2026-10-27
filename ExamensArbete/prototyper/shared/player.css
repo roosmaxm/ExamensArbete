@@ -1,0 +1,117 @@
+/* Grundutseende för spelaren. Prototypens style.css ändrar --ap-* variablerna. */
+.ap {
+  --ap-accent: #ff4757;
+  --ap-fg: #fff;
+  --ap-radius: 12px;
+  --ap-btn: 40px;
+  --ap-caption-bg: rgba(0,0,0,.78);
+  position: relative; background: #000; color: var(--ap-fg);
+  border-radius: var(--ap-radius); overflow: hidden; aspect-ratio: 16 / 9; width: 100%;
+  user-select: none; -webkit-user-select: none; isolation: isolate;
+}
+.ap.ap-fullscreen { border-radius: 0; aspect-ratio: auto; height: 100%; }
+.ap-video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+.ap-surface { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+
+.ap-big-play {
+  position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 76px; height: 76px; border-radius: 50%; border: 0; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--ap-accent) 92%, transparent); color: #fff;
+  box-shadow: 0 6px 30px rgba(0,0,0,.4); transition: transform .15s;
+}
+.ap-big-play svg { width: 38px; height: 38px; fill: currentColor; margin-left: 4px; }
+.ap-big-play:hover { transform: translate(-50%, -50%) scale(1.06); }
+.ap[data-state="playing"] .ap-big-play { display: none; }
+
+.ap-ripple {
+  position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); padding: 14px 18px; border-radius: 999px;
+  background: rgba(0,0,0,.55); font-weight: 700; opacity: 0; pointer-events: none;
+}
+.ap-ripple-left { left: 12%; } .ap-ripple-right { right: 12%; }
+.ap-ripple.ap-show { animation: ap-ripple .6s ease-out; }
+@keyframes ap-ripple { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+.ap-caption {
+  position: absolute; z-index: 2; left: 50%; bottom: 76px; transform: translateX(-50%);
+  max-width: 86%; text-align: center; padding: 6px 12px; border-radius: 6px;
+  background: var(--ap-caption-bg); color: #fff; font-size: clamp(14px, 2.4vw, 22px); line-height: 1.35;
+  transition: bottom .2s;
+}
+.ap.ap-idle .ap-caption { bottom: 20px; }
+
+.ap-error {
+  position: absolute; z-index: 3; inset: auto 16px 80px 16px; padding: 12px 14px; border-radius: 10px;
+  background: rgba(20,20,20,.9); display: grid; gap: 4px; font-size: 14px;
+}
+
+/* Kontrollrad */
+.ap-controls {
+  position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: 28px 12px 8px;
+  background: linear-gradient(transparent, rgba(0,0,0,.75));
+  transition: opacity .25s;
+}
+.ap.ap-idle .ap-controls { opacity: 0; }
+.ap.ap-idle { cursor: none; }
+.ap.ap-idle:focus-within .ap-controls { opacity: 1; }
+
+.ap-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ap-group { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.ap-btn {
+  width: var(--ap-btn); height: var(--ap-btn); border: 0; border-radius: 8px; background: transparent; color: var(--ap-fg);
+  display: grid; place-items: center; padding: 0; flex: none;
+}
+.ap-btn svg { width: 24px; height: 24px; fill: currentColor; }
+.ap-btn:hover { background: rgba(255,255,255,.14); }
+.ap-cc[aria-pressed="true"] { color: var(--ap-accent); }
+.ap-cc[aria-pressed="true"] svg { filter: drop-shadow(0 0 0 currentColor); }
+.ap-speed { width: auto; min-width: var(--ap-btn); padding: 0 8px; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; }
+.ap-time { font-size: 13px; font-variant-numeric: tabular-nums; padding: 0 8px; white-space: nowrap; opacity: .95; }
+.ap-chapter-label {
+  flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ap-fg); font-size: 13px; text-align: left;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 6px 8px; border-radius: 6px; opacity: .9;
+}
+.ap-chapter-label:hover { background: rgba(255,255,255,.12); }
+.ap-chapter-label:empty { visibility: hidden; }
+
+.ap-volume-wrap { display: flex; align-items: center; }
+.ap-volume { width: 0; opacity: 0; transition: width .2s, opacity .2s; accent-color: var(--ap-accent); }
+.ap-volume-wrap:hover .ap-volume, .ap-volume:focus-visible { width: 76px; opacity: 1; }
+
+.ap-speed-wrap { position: relative; }
+.ap-menu {
+  position: absolute; right: 0; bottom: calc(100% + 8px); min-width: 130px; padding: 6px;
+  background: rgba(22,22,22,.96); border-radius: 10px; display: grid; box-shadow: 0 8px 24px rgba(0,0,0,.4);
+}
+.ap-menu button { border: 0; background: transparent; color: #fff; text-align: left; padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+.ap-menu button:hover, .ap-menu button:focus-visible { background: rgba(255,255,255,.14); }
+.ap-menu button[aria-checked="true"] { color: var(--ap-accent); font-weight: 700; }
+.ap-menu button[aria-checked="true"]::before { content: "✓ "; }
+
+/* Tidslinje */
+.ap-progress { position: relative; height: 20px; display: flex; align-items: center; cursor: pointer; touch-action: none; margin: 0 4px; }
+.ap-track { position: relative; width: 100%; height: 4px; background: rgba(255,255,255,.3); border-radius: 2px; overflow: hidden; transition: height .15s; }
+.ap-progress:hover .ap-track, .ap-progress:focus-visible .ap-track { height: 7px; }
+.ap-buffer, .ap-played { position: absolute; left: 0; top: 0; bottom: 0; width: 0; }
+.ap-buffer { background: rgba(255,255,255,.35); }
+.ap-played { background: var(--ap-accent); }
+.ap-markers { position: absolute; inset: 0; pointer-events: none; }
+.ap-marker { position: absolute; top: 50%; width: 3px; height: 9px; transform: translate(-50%, -50%); background: rgba(0,0,0,.75); }
+.ap-handle {
+  position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; background: var(--ap-accent);
+  transform: translate(-50%, -50%) scale(0); transition: transform .15s; pointer-events: none;
+}
+.ap-progress:hover .ap-handle, .ap-progress:focus-visible .ap-handle { transform: translate(-50%, -50%) scale(1); }
+.ap-tip {
+  position: absolute; bottom: 22px; transform: translateX(-50%); display: grid; text-align: center; gap: 2px;
+  background: rgba(20,20,20,.95); padding: 6px 10px; border-radius: 8px; font-size: 12px; white-space: nowrap; pointer-events: none;
+}
+.ap-tip-time { font-weight: 700; font-variant-numeric: tabular-nums; }
+.ap-tip-chapter { opacity: .85; max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+
+@media (max-width: 560px) {
+  .ap { --ap-btn: 40px; }
+  .ap-volume-wrap { display: none; } /* telefoner har volymknappar */
+  .ap-btn { width: 36px; }
+  .ap-time { font-size: 12px; padding: 0 4px; }
+  .ap-caption { bottom: 64px; }
+}

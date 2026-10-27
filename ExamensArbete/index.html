@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ArcadaTube – Prototyp</title>
+  <link rel="stylesheet" href="prototyper/shared/base.css">
+  <style>
+    :root {
+      --bg: #f5f6f8; --surface: #fff; --text: #14161b; --muted: #5a6070; --line: #e2e5ea; --focus: #1c64d6;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--text);
+    }
+    body { background: var(--bg); line-height: 1.5; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 40px 16px 80px; }
+    h1 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -.02em; margin: 0 0 8px; line-height: 1.15; }
+    .lead { color: var(--muted); max-width: 70ch; margin: 0 0 28px; font-size: 17px; }
+    .proto { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; transition: box-shadow .15s, transform .15s; }
+    .proto:hover { box-shadow: 0 12px 30px rgba(0,0,0,.08); transform: translateY(-2px); }
+    .proto:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; }
+    @media (min-width: 720px) { .proto { grid-template-columns: 1fr 1fr; } }
+    .shot { min-height: 170px; position: relative; overflow: hidden; background: #fff; border-bottom: 1px solid var(--line); }
+    @media (min-width: 720px) { .shot { border-bottom: 0; border-right: 1px solid var(--line); } }
+    .shot i { position: absolute; display: block; border-radius: 4px; }
+    .body { padding: 18px 20px 22px; display: grid; gap: 8px; align-content: start; }
+    .letter { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    h2 { margin: 0; font-size: 22px; }
+    h2 a { color: inherit; text-decoration: none; }
+    h2 a::after { content: ""; position: absolute; inset: 0; }
+    h2 a:focus-visible { outline: none; }
+    .body p { margin: 0; color: var(--muted); }
+    ul { margin: 4px 0 0; padding-left: 18px; color: var(--text); font-size: 15px; }
+    .go { margin-top: 8px; font-weight: 700; color: var(--focus); }
+    .info { margin-top: 36px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+    .info h2 { font-size: 19px; margin-bottom: 8px; }
+    .info ul { padding-left: 20px; }
+    .info li { margin: 4px 0; }
+    .reset { margin-top: 14px; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 8px 14px; font-weight: 600; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>ArcadaTube</h1>
+    <p class="lead">Klickbar prototyp av en plattform för föreläsningsvideor. Designen följer den välkända modellen från stora
+      videoplattformar och har valts som grund för React-implementationen. Prova gärna både <b>student</b>- och
+      <b>lärarrollen</b> (rollväljaren finns i sidhuvudet) och testa också på mobilen.</p>
+
+    <article class="proto">
+      <div class="shot" aria-hidden="true">
+        <i style="left:0;right:0;top:0;height:22px;background:#fff;border-bottom:1px solid #eee;border-radius:0"></i>
+        <i style="left:10px;top:6px;width:30px;height:10px;background:#c8102e"></i>
+        <i style="left:35%;top:5px;width:34%;height:12px;background:#f0f1f3;border-radius:99px"></i>
+        <i style="left:0;top:22px;width:56px;bottom:0;background:#fafafa;border-radius:0"></i>
+        <i style="left:68px;top:34px;width:calc(50% - 40px);height:56px;background:#3b5bdb"></i>
+        <i style="left:calc(50% + 38px);top:34px;width:calc(50% - 50px);height:56px;background:#c2255c"></i>
+        <i style="left:68px;top:100px;width:calc(50% - 40px);height:56px;background:#2b8a3e"></i>
+        <i style="left:calc(50% + 38px);top:100px;width:calc(50% - 50px);height:56px;background:#d9480f"></i>
+      </div>
+      <div class="body">
+        <span class="letter">Vald design (prototyp A)</span>
+        <h2><a href="prototyper/a-klassisk/index.html">ArcadaTube</a></h2>
+        <p>Sökfält i toppen, sidomeny med kurser och ett rutnät av föreläsningar.</p>
+        <ul><li>”Nästa”-lista bredvid spelaren</li><li>Kapitel under videon</li><li>Studio med tabell och uppladdningsdialog</li></ul>
+        <span class="go" aria-hidden="true">Öppna →</span>
+      </div>
+    </article>
+
+    <section class="info" aria-labelledby="how-h">
+      <h2 id="how-h">Bra att veta</h2>
+      <ul>
+        <li>Videobilden är ett platshållarklipp – fokusera på gränssnittet, inte innehållet.</li>
+        <li>Den gula rutan nere till höger i prototypen leder tillbaka hit.</li>
+        <li>Allt du gör sparas bara i din egen webbläsare. Återställ med knappen nedan.</li>
+      </ul>
+      <button type="button" class="reset" id="reset">Återställ demodata</button>
+    </section>
+
+    <footer>Examensarbete i informationsteknik, Arcada. Prototypen är en del av designfasen (Design Science Research). Se README.md för processen.</footer>
+  </main>
+
+  <script src="prototyper/shared/mock-data.js"></script>
+  <script src="prototyper/shared/common.js"></script>
+  <script>
+    document.getElementById('reset').addEventListener('click', function () {
+      AT.resetData();
+      ['role', 'history', 'cc', 'speed', 'autoplay'].forEach(AT.store.remove);
+      AT.toast('Demodata återställd');
+    });
+  </script>
+</body>
+</html>
